@@ -13,7 +13,7 @@ select id, student_temp as student from (
 order by 1
 
 
---M2 (FAST)
+--M2
 with cte as (
     select id, student, lag(student) over(order by id) as lag_student, lead(student) over(order by id) as lead_student, mod(id,2) as odd_even, (select max(id) from Seat x) as max_id
     from Seat    
@@ -38,7 +38,7 @@ FROM Seat
 -- order by id ascending order:
 ORDER BY id ASC;
 
---M4
+--M4 [ELEGANT]
 select 
     id,
     case 
