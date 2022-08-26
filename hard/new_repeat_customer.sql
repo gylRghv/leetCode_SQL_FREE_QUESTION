@@ -35,5 +35,11 @@ select order_date
 from diffs
 group by order_date
 
+--------METHOD-2-----------
 
-
+Select a.order_date,
+Sum(Case when a.order_date = a.first_order_date then 1 else 0 end) as new_customer,
+Sum(Case when a.order_date != a.first_order_date then 1 else 0 end) as repeat_customer
+from(
+Select customer_id, order_date, min(order_date) over(partition by customer_id) as first_order_date from customer_orders) a 
+group by a.order_date;
