@@ -24,3 +24,20 @@ select team, count(team)
 , sum(case when Winner = team then 0 else 1 end) as no_of_losses
 from all_matches
 group by 1
+
+----BETTER APPROACH-----
+
+with all_matches as (
+	SELECT team_1 as team_name, case when team_1 = winner then 1 else 0 end as winner_flag
+	from icc_world_cup
+	UNION all
+	select team_2 as team_name, case when team_2 = winner then 1 else 0 end as winner_flag
+	from icc_world_cup
+)
+select team_name
+, count(1) as total_games
+, sum(winner_flag) as no_of_wins 
+, count(1) - sum(winner_flag) as no_of_losses
+from all_matches
+group by 1
+order by no_of_wins desc 
