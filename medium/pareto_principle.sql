@@ -1,4 +1,4 @@
--- find 20% of products which give 80% of sales - paretyo principle
+-- find 20% of products which give 80% of sales - pareto principle
 
 CREATE TABLE if not exists `Superstore_orders` (
   `Row_ID` int DEFAULT NULL,
